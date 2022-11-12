@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        body{
+            margin: 0px;
+        }
+        body::-webkit-scrollbar{
+            display: none;
+        }
+        .container-a{
+            width: 100vw;
+            min-height: 100vh;
+            background-color: rgb(0, 0, 0);
+            display: flex;
+            align-items: center;
+        }
+        .container-b{
+            width: 100%;
+            height:90vh;
+            display: flex;
+            color:white;
+            overflow: scroll;
+            /* background-color: cadetblue; */
+        }
+        .container-b::-webkit-scrollbar{
+            display: none;
+        }
+        
+        #table{
+            width: 80%;
+            max-width: 100%;
+            border-spacing: 0px;
+            border-collapse: collapse;
+            margin: 0px auto;
+            box-shadow: 0px -10px 20px rgba(255, 255, 255, 0.299);
+        }
+        
+        #table .colums{
+            width: 20%;
+            padding: 25px;
+            font-size: 1.3rem;
+            word-wrap: break-word;
+            background:#005f73;
+            text-align: left;
+        }
+        #table tr.head{
+            position: sticky;
+            top: 0px;
+            z-index: 100;
+            
+            /* box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.299); */
+        }
+        
+        /* #table tr:nth-last-of-type(even){
+            background-color: rgba(31, 31, 31, 0.292);;
+        } */
+        #table .tr{
+            transition: all 0.1s ease-in;
+        }
+        #table .tr:hover{
+            background-color:#3f3f3f73;
+            box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.563) ;
+        }
+        #table .tr:active{
+            background-color:#3f3f3f73;
+            transform: scale(0.95);
+        }
+        #table .tr td {
+            text-align: left;
+            padding: 20px 10px 20px 25px;
+            word-wrap: break-word;
+            font-size: 1.1rem;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container-a">
+        <div class="container-b">
+            <table id="table">
+                <thead>
+                    <colgroup>
+                    <col span="5" style="border-right: 1px solid white;border-left: 1px solid white;">
+                    </colgroup>
+                    <tr class="head">
+                        <th class="colums">Name</td>
+                        <th class="colums">Email</td>
+                        <th class="colums">Phone</td>
+                        <th class="colums">Website</td>
+                        <th class="colums">Company name</td>
+                    </tr>
+                </thead>
+                <tbody>
+                  
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+        </div>
+    </div>
+</body>
+<script>
+            const colorp = ['#9b2226','#ae2012','#bb3e03','#ca6702','#ee9b00','#e9d8a6','#94d2bd','#0a9396','#005f73','#001219'];
+        
+    (async function(){
+        const tablebody=document.querySelector('tbody');
+        let users =await fetch('https://jsonplaceholder.typicode.com/users');
+        users = await users.json();
+        console.log(users);
+        for(let i=0 ;i< users.length;i++){
+        const tr = document.createElement('tr');
+        tr.setAttribute('class','tr');  
+        tr.innerHTML=`
+        <td>${users[i].name}</td>
+        <td>${users[i].email}</td>
+        <td>${users[i].phone}</td>
+        <td>${users[i].website}</td>
+        <td>${users[i].company.name}</td>
+        `
+        tr.addEventListener('click',()=>{
+            window.open(`posts.html?userId=${users[i].id}`,'_self')
+        })
+        tablebody.append(tr);
+        
+    }
+    })();
+    
+</script>
+</html>
