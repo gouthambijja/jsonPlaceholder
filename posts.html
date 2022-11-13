@@ -16,6 +16,10 @@
         box-sizing: border-box;
         
     }
+    html{
+        margin:0px;
+        padding: 0px;
+    }
     body{
         position: relative;
         margin: 0px;
@@ -37,11 +41,12 @@
     }
     .container-2{
         width:100%;
-        max-height: 100%;
+        min-height: 100%;
         padding:5rem 6rem;
         overflow: scroll;
         display: flex;
         flex-wrap: wrap;
+        align-content: center;
         justify-content: center;
         gap:1.5rem;
     }
@@ -113,7 +118,6 @@
     }
     .comments{
         padding: 10px;
-        height: 60px;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -152,15 +156,41 @@
     }
     .hiddenCtnr{
         max-width: 80%;
+        /* transform: scale(1.2); */
+        
+        display:flex;
+                    flex-wrap:wrap;
+                    justify-content:center;
+                    align-items:center;
+                    box-shadow:0px 0px 25px #000;
     }
     .icon{
         padding: 0px 5px;
+    }
+    .check{
+        display:none;
+    }
+    input[type = "checkbox"]{
+        display: none;
+    }
+    input[type = "checkbox"]:checked ~ label ~ .comments .check{
+        display: inline;
+    }
+    input[type = "checkbox"]:checked ~ label ~ .comments .no-check{
+        display: none;
+    }
+    input[type = "checkbox"]:checked ~ label .post-content{
+        color: greenyellow;
     }
 @media screen and (max-width:768px)
 {
     .container-2{
         padding:1rem 1rem;
-        
+    }
+    .hiddenCtnr{
+        /* max-width: 80%; */
+        transform: scale(1);
+        max-height: 814px;
     }
 }
 </style>
@@ -183,15 +213,17 @@
                 const postCard = document.createElement('div');
                 postCard.setAttribute('class','postCard')
                 let postCardHtml = ``;
-                postCardHtml+=`<div class="post-content">
-                <div class="post-body"><div class="post-title"> ${post.title}</div>${post.body}</div></div><div class="comments"><span class="comments-btn" ><i class="icon fa-solid fa-comment"></i></span><span class="icons" "><i class="fa-regular fa-square icon"></i> <i class="fa-solid fa-pen-to-square icon"></i> <i class="icon fa fa-trash delete" aria-hidden="true"></i> </span><div class="comments-set">`             
+                postCardHtml+=`
+                <input type="checkbox" id = ${post.id}>
+                <label for=${post.id}><div class="post-content">
+                <div class="post-body"><div class="post-title"> ${post.title}</div>${post.body}</div></div></label><div class="comments"><span class="comments-btn" ><i class="icon fa-solid fa-comment"></i></span><span class="icons" "><i class="fa-regular fa-square-check check icon"></i></i><i class="fa-regular fa-square icon no-check"></i> <i class="fa-solid fa-pen-to-square icon"></i> <i class="icon fa fa-trash delete" aria-hidden="true"></i> </span><div class="comments-set">`             
                 for(let i = comments.length - 1  ; i > comments.length-4 ; i--){
                     postCardHtml+=`<div class= "comment"><div class="comments-name">${comments[i].name}</div>
                     <div class="comments-body">${comments[i].body}</div>
                     <div class="comments-email">-${comments[i].email}</div></div>
                     `
                 }
-                postCardHtml+='</div></div>'
+                postCardHtml+='</div>'
                 postCard.innerHTML=postCardHtml;
                 document.querySelector('.container-2').append(postCard);
             }
@@ -201,8 +233,10 @@
             const postContainer = document.querySelectorAll('.postCard');
             const deleteBtn = document.querySelectorAll('.delete');
             for(let i=0 ;i< commentsBtn.length ; i++){
+                
                 deleteBtn[i].addEventListener('click',(e)=>{
-                    e.target.parentElement.parentElement.parentElement.remove();
+                    const deleteItem = e.target.parentElement.parentElement.parentElement;
+                    if(confirm(`Are you sure you want to delete the selected file?`))deleteItem.remove();
                 })
                 commentsBtn[i].addEventListener('click',(e)=>{
                     const backCoverDiv = document.createElement('div');
@@ -215,7 +249,7 @@
                     background:rgba(0,0,0,0.92);
                     display:flex;
                     justify-content:center;
-                                            `
+                    padding:30px 0px;                                               `
                     const postTitleBody = postdiv[i].cloneNode(true);
                     postTitleBody.style.background=`linear-gradient(40deg,
                         #fffc00 0%,
@@ -227,21 +261,13 @@
                     console.log(postTitleBody);
                     const hiddenCtnr = document.createElement('div');
                     hiddenCtnr.setAttribute('class','hiddenCtnr');
-                    hiddenCtnr.style.cssText=`
-                    display:flex;
-                    flex-wrap:wrap;
-                    justify-content:center;
-                    align-items:center;
-                    box-shadow:0px 0px 25px #000;
-                        `
-                        
                     hiddenCtnr.append(postTitleBody);
                     hiddenCtnr.append(comments[i]);
                     
                     backCoverDiv.append(hiddenCtnr);
                     backCoverDiv.addEventListener('click',(e)=>{
                         if(e.target === backCoverDiv || e.target ===hiddenCtnr){
-                            backCoverDiv.style.display="none";
+                            backCoverDiv.remove();
                         }
                     })
                     comments[i].style.display = "inline-block";
