@@ -1,0 +1,215 @@
+@font-face {
+    font-family: kakarot;
+    src: url(Varietykiller.otf);
+}
+*{
+    box-sizing: border-box;
+    
+}
+html{
+    margin:0px;
+    padding: 0px;
+}
+body{
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(0, 0, 0); 
+    color: white;
+}
+body::-webkit-scrollbar{
+    display: none;
+}
+.container-1{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.delete-all{
+    position: fixed;
+    right: 15px;
+    top:15px;
+    transition: font-size 0.1s ease;
+    z-index: 1000;
+    cursor: pointer;
+}
+.delete-all:hover{
+    color: greenyellow;
+    font-size: 1.2rem;
+}
+
+.container-2{
+    width:100%;
+    min-height: 100%;
+    padding:5rem 6rem;
+    overflow: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    gap:1.5rem;
+}
+.container-2::-webkit-scrollbar{
+    display: none;
+}
+.postCard{
+    width:350px;
+    height: calc(350px * 1.29);
+    word-wrap: break-word;
+    border-radius: 0.6rem;
+    position: relative;
+    border: 1px solid greenyellow;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.301);
+    transition: all 0.2s linear;
+}
+.save-changes{
+    position: absolute;
+    right: 10px;
+    top:10px;
+    font-size: 1.3rem;
+    display: none;
+    cursor: pointer;
+}
+.post-content{
+    transition: all 0.2s linear;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.postCard:hover{
+  transform:perspective(1000px) rotateY(5deg);
+}
+.post-content:nth-of-type(3n+1):hover{
+    background: linear-gradient(
+    40deg,
+    #fffc00 0%,
+    #fc00ff 45%,
+    #00fffc 100%
+  ) right;
+  background-size: 200%;
+
+}
+
+.post-title{
+    font-size: 1.3rem;
+    word-wrap: break-word;
+    font-family: kakarot;
+    margin: 30px 0px;
+}
+.post-body{
+    border-bottom: 1px solid rgb(155, 155, 155);
+    padding:20px;
+    width: 100%;
+    height: 407px;
+    overflow: scroll;
+    word-wrap: break-word;
+}
+
+.post-body::-webkit-scrollbar{
+    display: none;
+}
+.comments{
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.comment{
+    margin-top: 30px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #fff;
+}
+.comment-icon,.delete,.edit{
+    cursor: pointer;
+}
+.comments-set{
+    color:rgb(255, 255, 255);
+
+    background: #f15bb5;
+    display: none;
+        padding:0rem 1rem 1rem 1rem;
+    height:407px;
+    overflow: scroll;
+    border-left: rgb(156, 156, 156);
+}
+.comments-set::-webkit-scrollbar{
+    display: none;
+}
+.comments-name{
+    padding: 3px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    font-variant: small-caps;
+}
+.comments-body{
+    padding:5px 10px;
+}
+.comments-email{
+    text-align: right;
+    font-style: italic;
+    color:rgb(255, 255, 255);
+}
+.hiddenCtnr{
+    max-width: 80%;
+    /* transform: scale(1.2); */
+    
+    display:flex;
+                flex-wrap:wrap;
+                justify-content:center;
+                align-items:center;
+                box-shadow:0px 0px 25px #000;
+}
+.icon{
+    padding: 0px 5px;
+}
+.check{
+    display:none;
+}
+input[type = "checkbox"]{
+    display: none;
+}
+input[type = "checkbox"]:checked ~ label ~ .comments .check{
+    display: inline;
+}
+input[type = "checkbox"]:checked ~ label ~ .comments .no-check{
+    display: none;
+}
+input[type = "checkbox"]:checked ~ label .post-content{
+    color: greenyellow;
+}
+.back-cover-div{
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:100vw;
+    height:100vh;
+    background:rgba(0,0,0,0.92);
+    display:flex;
+    justify-content:center;
+    padding:30px 0px; 
+}
+.post-title-body{
+    background:linear-gradient(40deg,
+        #fffc00 0%,
+        #fc00ff 45%,
+        #00fffc 100%) right;
+        max-width:350px;
+        box-shadow:5px 0px 10px rgba(0, 0, 0, 0.35);
+        z-index:1;
+}
+@media screen and (max-width:768px)
+{
+.container-2{
+    padding:2.8rem 1rem;
+}
+.hiddenCtnr{
+    /* max-width: 80%; */
+    transform: scale(1);
+    max-height: 814px;
+}
+}
