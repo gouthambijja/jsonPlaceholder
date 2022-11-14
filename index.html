@@ -79,7 +79,43 @@
             word-wrap: break-word;
             font-size: 1.1rem;
         }
-        
+        @media screen and (max-width:768px) {
+            .head{
+                display: none;
+            }
+            #table .tr{
+                   border: 1px solid white;
+            }
+            
+            #table .tr td{
+                display: block;
+                width: 100%;
+                padding-left: 40%;
+                text-align: left;
+                position: relative;
+            }
+            #table .tr td::before{
+                position: absolute;
+                width: 30%;
+                left:30px;
+                color: greenyellow;
+            }
+            .name::before{
+                content: "Name";
+            }
+            .email::before{
+                content: "Email";
+            }
+            .phone::before{
+                content: "Phone";
+            }
+            .website::before{
+                content: "Website";
+            }
+            .company::before{
+                content: "Company";
+            }
+            }
     </style>
 </head>
 <body>
@@ -88,7 +124,7 @@
             <table id="table">
                 <thead>
                     <colgroup>
-                    <col span="5" style="border-right: 1px solid white;border-left: 1px solid white;">
+                    <col  span="5" style="border-right: 1px solid white;border-left: 1px solid white;">
                     </colgroup>
                     <tr class="head">
                         <th class="colums">Name</td>
@@ -118,11 +154,11 @@
         const tr = document.createElement('tr');
         tr.setAttribute('class','tr');  
         tr.innerHTML=`
-        <td>${users[i].name}</td>
-        <td>${users[i].email}</td>
-        <td>${users[i].phone}</td>
-        <td>${users[i].website}</td>
-        <td>${users[i].company.name}</td>
+        <td class="name">${users[i].name}</td>
+        <td class="email">${users[i].email}</td>
+        <td class="phone">${users[i].phone}</td>
+        <td class="website">${users[i].website}</td>
+        <td class="company">${users[i].company.name}</td>
         `
         tr.addEventListener('click',()=>{
             window.open(`posts.html?userId=${users[i].id}`,'_self')
