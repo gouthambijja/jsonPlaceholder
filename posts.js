@@ -38,6 +38,8 @@ const url = new URL(window.location.href);
             const deleteAll = document.querySelector('.delete-all');
             const saveBtn = document.querySelectorAll('.save-changes');
             const input = document.querySelectorAll(`input[type = "checkbox"]`);
+            const check = document.querySelectorAll('.check');
+            const noCheck = document.querySelectorAll('.no-check')
             for(let i=0 ;i< commentsBtn.length ; i++){
                 editBtn[i].addEventListener('click',()=>{
                     input[i].disabled = true;
@@ -51,6 +53,14 @@ const url = new URL(window.location.href);
                     postBody[i].contentEditable=false;
                     postBody[i].contentEditable=false;
 
+                })
+                noCheck[i].addEventListener('click',()=>{
+                    postchecked[i].checked = true;
+                    deleteArray.push(postContainer[i]);
+                })
+                check[i].addEventListener('click',()=>{
+                    postchecked[i].checked = false;
+                    deleteArray.splice(deleteArray.indexOf(postContainer[i]),1);   
                 })
                 postchecked[i].addEventListener('change',()=>{
                     if(postchecked[i].checked == true){
