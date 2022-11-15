@@ -36,6 +36,7 @@ body::-webkit-scrollbar{
     transition: font-size 0.1s ease;
     z-index: 1000;
     cursor: pointer;
+    display: none;
 }
 .delete-all:hover{
     color: greenyellow;
@@ -66,10 +67,6 @@ body::-webkit-scrollbar{
     transition: all 0.2s linear;
 }
 .save-changes{
-    position: absolute;
-    right: 10px;
-    top:10px;
-    font-size: 1.3rem;
     display: none;
     cursor: pointer;
 }
@@ -202,6 +199,22 @@ input[type = "checkbox"]:checked ~ label .post-content{
         box-shadow:5px 0px 10px rgba(0, 0, 0, 0.35);
         z-index:1;
 }
+[contenteditable="true"]{
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.148);
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.516);
+    color: black;
+    background:linear-gradient(40deg,
+        #fffc00 0%,
+        #fc00ff 45%,
+        #00fffc 100%) right;
+    backdrop-filter: blur(6px);
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.617);
+    transition: all 0.1s linear;
+}
 @media screen and (max-width:768px)
 {
 .container-2{
@@ -212,4 +225,12 @@ input[type = "checkbox"]:checked ~ label .post-content{
     transform: scale(1);
     max-height: 814px;
 }
+.delete-all{
+    color: greenyellow;
+    font-size: 1.2rem;
+    background-color: rgba(255, 255, 255, 0.261);
+    backdrop-filter: blur(6px);
+    border-radius: 3px;
+}
+
 }
