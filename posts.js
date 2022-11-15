@@ -4,6 +4,7 @@ const url = new URL(window.location.href);
         (async()=>{
             let posts=await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${id}`)
             posts = await posts.json();
+            const container2 = document.querySelector('.container-2');
             for(let post of posts){
                 const postCard = document.createElement('div');
                 postCard.setAttribute('class','postCard')
@@ -16,7 +17,7 @@ const url = new URL(window.location.href);
                 
                 postCardHtml+='</div>'
                 postCard.innerHTML=postCardHtml;
-                document.querySelector('.container-2').append(postCard);
+                container2.append(postCard);
             }
             const commentsBtn = document.querySelectorAll('.comments-btn');
             const comments = document.querySelectorAll('.comments-set');
