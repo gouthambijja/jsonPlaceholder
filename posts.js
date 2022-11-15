@@ -83,6 +83,7 @@ const url = new URL(window.location.href);
                             backCoverDiv.remove();
                         }
                     })
+                    document.body.append(backCoverDiv);
                     let Usercomments = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${posts[i].id}`)
                     Usercomments = await Usercomments.json();
                     let UsercommentSet=' ';
@@ -95,7 +96,6 @@ const url = new URL(window.location.href);
                     comments[i].innerHTML=UsercommentSet;
                     comments[i].style.display = "inline-block";
                     comments[i].style.maxWidth = "350px";
-                    document.body.append(backCoverDiv);
                 })
             }      
                  deleteAll.addEventListener('click',()=>{
