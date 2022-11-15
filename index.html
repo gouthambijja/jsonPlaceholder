@@ -161,6 +161,7 @@
         <td class="company">${users[i].company.name}</td>
         `
         tr.addEventListener('click',()=>{
+            document.cookie=`userId=${users[i].id};path=/`;
             window.open(`posts.html?userId=${users[i].id}`,'_self')
         })
         tablebody.append(tr);

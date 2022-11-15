@@ -5,8 +5,6 @@ const url = new URL(window.location.href);
             let posts=await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${id}`)
             posts = await posts.json();
             for(let post of posts){
-                let comments = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${post.id}`)
-                comments = await comments.json();
                 const postCard = document.createElement('div');
                 postCard.setAttribute('class','postCard')
                 let postCardHtml = `<span class="save-changes"><i class="far fa-save"></i></span>
@@ -15,12 +13,7 @@ const url = new URL(window.location.href);
                 <input type="checkbox" id = ${post.id}>
                 <label for=${post.id}><div class="post-content">
                 <div class="post-body"><div class="post-title"> ${post.title}</div>${post.body}</div></div></label><div class="comments"><span class="comments-btn" ><i class="icon fa-solid fa-comment comment-icon"></i></span><span class="icons" "><i class="fa-regular fa-square-check check icon"></i></i><i class="fa-regular fa-square icon no-check"></i> <i class="fa-solid fa-pen-to-square icon edit"></i> <i class="icon fa fa-trash delete" aria-hidden="true"></i> </span><div class="comments-set">`             
-                for(let i = comments.length - 1  ; i > comments.length-4 ; i--){
-                    postCardHtml+=`<div class= "comment"><div class="comments-name">${comments[i].name}</div>
-                    <div class="comments-body">${comments[i].body}</div>
-                    <div class="comments-email">-${comments[i].email}</div></div>
-                    `
-                }
+                
                 postCardHtml+='</div>'
                 postCard.innerHTML=postCardHtml;
                 document.querySelector('.container-2').append(postCard);
@@ -74,7 +67,7 @@ const url = new URL(window.location.href);
                     deleteArray.splice(deleteArray.indexOf(deleteItem),1);
                     if(confirm(`Are you sure you want to delete the selected file?`))deleteItem.remove();
                 })
-                commentsBtn[i].addEventListener('click',(e)=>{
+                commentsBtn[i].addEventListener('click',async(e)=>{
                     const backCoverDiv = document.createElement('div');
                     backCoverDiv.setAttribute('class','back-cover-div');
                     const postTitleBody = postdiv[i].cloneNode(true);
@@ -82,6 +75,16 @@ const url = new URL(window.location.href);
                     const hiddenCtnr = document.createElement('div');
                     hiddenCtnr.setAttribute('class','hiddenCtnr');
                     hiddenCtnr.append(postTitleBody);
+                    let Usercomments = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${posts[i].id}`)
+                    Usercomments = await Usercomments.json();
+                    let UsercommentSet=' ';
+                    for(let i = Usercomments.length - 1  ; i > Usercomments.length-4 ; i--){
+                         UsercommentSet+=`<div class= "comment"><div class="comments-name">${Usercomments[i].name}</div>
+                        <div class="comments-body">${Usercomments[i].body}</div>
+                        <div class="comments-email">-${Usercomments[i].email}</div></div>
+                        `
+                    }
+                    comments[i].innerHTML=UsercommentSet;
                     hiddenCtnr.append(comments[i]);
                     backCoverDiv.append(hiddenCtnr);
                     backCoverDiv.addEventListener('click',(e)=>{
