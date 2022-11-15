@@ -76,6 +76,13 @@ const url = new URL(window.location.href);
                     const hiddenCtnr = document.createElement('div');
                     hiddenCtnr.setAttribute('class','hiddenCtnr');
                     hiddenCtnr.append(postTitleBody);
+                    hiddenCtnr.append(comments[i]);
+                    backCoverDiv.append(hiddenCtnr);
+                    backCoverDiv.addEventListener('click',(e)=>{
+                        if(e.target === backCoverDiv || e.target ===hiddenCtnr){
+                            backCoverDiv.remove();
+                        }
+                    })
                     let Usercomments = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${posts[i].id}`)
                     Usercomments = await Usercomments.json();
                     let UsercommentSet=' ';
@@ -86,13 +93,6 @@ const url = new URL(window.location.href);
                         `
                     }
                     comments[i].innerHTML=UsercommentSet;
-                    hiddenCtnr.append(comments[i]);
-                    backCoverDiv.append(hiddenCtnr);
-                    backCoverDiv.addEventListener('click',(e)=>{
-                        if(e.target === backCoverDiv || e.target ===hiddenCtnr){
-                            backCoverDiv.remove();
-                        }
-                    })
                     comments[i].style.display = "inline-block";
                     comments[i].style.maxWidth = "350px";
                     document.body.append(backCoverDiv);
