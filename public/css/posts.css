@@ -1,6 +1,6 @@
 @font-face {
     font-family: kakarot;
-    src: url(Varietykiller.otf);
+    src: url(../fonts/Varietykiller.otf);
 }
 *{
     box-sizing: border-box;
